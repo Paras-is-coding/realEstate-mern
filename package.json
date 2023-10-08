@@ -1,0 +1,22 @@
+{
+  "name": "mernrealestate",
+  "version": "1.0.0",
+  "description": "mern estate project",
+  "main": "index.js",
+  "scripts": {
+    "start":"nodemon index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "mern",
+    "estate"
+  ],
+  "author": "paras chand",
+  "license": "ISC",
+  "devDependencies": {
+    "nodemon": "^3.0.1"
+  },
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}
