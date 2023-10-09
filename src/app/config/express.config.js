@@ -23,4 +23,29 @@ app.use(express.urlencoded({extended:false}))
 const router = require('../router/index.js');
 app.use('/api',router);
 
+
+
+//404 handler
+app.use((req,res,next)=>{
+    res.json({
+        message:"404 page not found",
+        result:false,
+        meta:null
+    })
+})
+
+//error handler middleware, program will come to this section when called with next(withparm)
+app.use((err,req,res,next)=>{
+    console.log(err)
+    const code = err.code ?? 500;
+    const message = err.message ?? "Internal server error";
+    const result = err.result ?? false;
+
+     
+ res.status(500).json({ 
+    message,
+    result
+  });
+})
+
 module.exports = app;
