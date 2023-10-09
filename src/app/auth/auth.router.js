@@ -1,7 +1,7 @@
 const authRouter = require('express').Router();
-const authCtrl = require("./auth.controller");
+const authCtrl = require("./auth.controller.js");
 
 //handeled /api/register route
-authRouter.use("/register",authCtrl.register);
+authRouter.post("/sign-in",authCtrl.signIn);
 
 module.exports = authRouter;
