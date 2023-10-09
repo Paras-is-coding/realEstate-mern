@@ -1,5 +1,6 @@
 const express = require("express");
 
+//connecting to mongoose database
 const mongoose = require("mongoose");
 const dotenv = require('dotenv');
 dotenv.config();
@@ -10,9 +11,11 @@ mongoose.connect(process.env.MONGODB_URL).then(()=>{
 })
 
 
-const router = require('../router/index');
+//creating express app
 const app = express();
 
-app.use(router)
+//mounting router to express app
+const router = require('../router/index');
+app.use('/api',router);
 
 module.exports = app;
