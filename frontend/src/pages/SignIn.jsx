@@ -1,14 +1,20 @@
 import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
+import {useDispatch, useSelector} from 'react-redux'
+import { signInStart,signInFailure,signInSuccess } from '../redux/user/userSlice.js'
 
 export default function SignIn() {
   const [user,setUser] = useState({
     email:"",
     password:""
   })
-  const [error,setError] = useState(null);
-  const [loading,setLoading] =  useState(false);
+  // const [error,setError] = useState(null);
+  // const [loading,setLoading] =  useState(false);
+
+  //instead of making hooks we import from global state /user slice
+  const{loading,error} = useSelector((state)=>state.user);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const handleChange = (e)=>{
       setUser((prev)=>( {...prev,[e.target.id] : e.target.value}))
@@ -18,7 +24,8 @@ export default function SignIn() {
   const handleSubmit =async (e)=>{
     e.preventDefault();
     try{
-      setLoading(true);
+      // setLoading(true);
+      dispatch(signInStart())
       //created proxy in viteconfig for route before /api
       const response = await fetch('/api/auth/sign-in',{
         method: 'POST',
@@ -31,17 +38,20 @@ export default function SignIn() {
       
       data = await response.json();
       if(data.success === false){
-        setError(data.message);
-        setLoading(false);
+        // setError(data.message);
+        // setLoading(false);
+        dispatch(signInFailure(data.message));
         return;
       }
-      setError(null);
-      setLoading(false);
+      // setError(null);
+      // setLoading(false);
+      dispatch(signInSuccess(data));
       navigate('/')
     
-    }catch(er){
-      setError(error.message);
-      setLoading(false);
+    }catch(error){
+      // setError(error.message);
+      // setLoading(false);
+      dispatch(signInFailure(error.message))
     }
   }
    
