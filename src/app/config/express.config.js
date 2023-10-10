@@ -37,12 +37,18 @@ app.use((req,res,next)=>{
 //error handler middleware, program will come to this section when called with next(withparm)
 app.use((err,req,res,next)=>{
     console.log(err)
-    const code = err.code ?? 500;
+    let code;
+    if(err.code >=200 && err.code < 600){
+        code = err.code;
+    }else{
+        code = 500;
+    }
     const message = err.message ?? "Internal server error";
     const result = err.result ?? false;
 
      
- res.status(500).json({ 
+ res.status(code).json({ 
+    success:false,
     message,
     result
   });
