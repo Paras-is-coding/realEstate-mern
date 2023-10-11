@@ -62,7 +62,8 @@ class authController{
                 const token = jwt.sign({id:user._id},process.env.JWT_SECRET);
                 const {password:pass,...rest} = user._doc;
                 res.cookie('access_token',token,{httpOnly:true}).status(200).json(rest);
-            }else{
+            }
+            else{
                 // add new user to dbase if already not found
                 // now we donot have password field value so we create one
                  const generatedPassword = Math.random().toString(36).slice(-8) + Math.random().toString(36).slice(-8);
