@@ -1,3 +1,4 @@
+const { response } = require('express');
 const  errorHandler  = require('../utils/error.js');
 const User = require('./authModels/user.model.js')
 const bcryptjs = require('bcryptjs') // for enc of psw
@@ -50,6 +51,38 @@ class authController{
             res.cookie('access_token',token,{httpOnly:true,expires : expirationDate}).status(200).json(rest) //expires opt , httpOnly for safety
         }catch(error){
             next(error);
+        }
+    }
+
+    google = async (req,res,next) =>{
+        try{    
+            // see if user exist - then just sign in
+            const user = await User.findOne({email:req.body.email})
+            if(user){
+                const token = jwt.sign({id:user._id},process.env.JWT_SECRET);
+                const {password:pass,...rest} = user._doc;
+                res.cookie('access_token',token,{httpOnly:true}).status(200).json(rest);
+            }else{
+                // add new user to dbase if already not found
+                // now we donot have password field value so we create one
+                 const generatedPassword = Math.random().toString(36).slice(-8) + Math.random().toString(36).slice(-8);
+                 const hashedPassword = bcryptjs.hashSync(generatedPassword,10);
+                 let username = req.body.name.split(" ").join("").toLowerCase()+parseInt(Math.random()*4);
+                 const newUser = new User({
+                    username:username,
+                    email:req.body.email,
+                    password:hashedPassword,
+                    avatar:req.body.photo
+                 })
+
+                 await newUser.save();
+                 const token = jwt.sign({id:newUser._id},process.env.JWT_SECRET)
+                 const{password:pass,...rest} = newUser._doc;
+                 response.cookie('access_token',token,{httpOnly:true}).status(200).json(rest);
+
+            }
+        }catch(error){
+            next(error)
         }
     }
 }
