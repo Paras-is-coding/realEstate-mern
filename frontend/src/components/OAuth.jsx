@@ -12,7 +12,10 @@ export default function OAuth() {
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    
     const handleGoogleClick =async () =>{
+
+    
         try{
         const provider = new  GoogleAuthProvider()
         const auth = getAuth(app);
@@ -43,4 +46,4 @@ export default function OAuth() {
   return (
     <button onClick={handleGoogleClick} type='button' className=' hover:opacity-95 bg-red-800 p-3 text-white uppercase rounded-lg'>Continue with Google</button>
   )
-}
+}  
