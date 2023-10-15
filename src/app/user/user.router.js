@@ -3,5 +3,6 @@ const userCtrl = require("./user.controller.js");
 const {verifyToken} = require('../utils/verifyUser.js')
 
 userRouter.post("/update/:id",verifyToken,userCtrl.updateUser)
+userRouter.delete("/delete/:id",verifyToken,userCtrl.deleteUser)
 
 module.exports = userRouter
