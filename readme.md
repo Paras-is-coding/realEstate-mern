@@ -122,3 +122,14 @@
 
 - frontend/pages/Profile.jsx > in signout bth add onClick={handleSignOut}
 - add 3 reducers here too for signout and dispatch in Profile.jsx
+
+
+## LISTING...
+## ADD '/create' LISTING API ROUTE 
+- Create listing component with 'listing' route
+- now make 'create' route 
+- make listing model for database store
+    - creating obj of mongoose.Schema({}) class and mongoose.model(name,schema) method
+    - fields name,description,address,regularPrice,discountPrice,bathrooms,bedrooms,furnished,
+        parking,type,offer,imageUrls,userRef
+- use the model in createListing controller midd. to create and add listing data to db
