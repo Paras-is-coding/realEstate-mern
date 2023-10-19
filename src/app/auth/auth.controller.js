@@ -3,6 +3,8 @@ const  errorHandler  = require('../utils/error.js');
 const User = require('./authModels/user.model.js')
 const bcryptjs = require('bcryptjs') // for enc of psw
 const jwt = require('jsonwebtoken')
+const dotenv = require('dotenv')
+dotenv.config()
 
 class authController{
     signUp = async (req,res,next)=>{
@@ -84,6 +86,15 @@ class authController{
             }
         }catch(error){
             next(error)
+        }
+    }
+
+    signOut = (req,res,next)=>{
+        try{
+            res.clearCookie('access_token');
+            res.status(200).json("User has been logged out!");
+        }catch(except){
+            next(except)
         }
     }
 }
