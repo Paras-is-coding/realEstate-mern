@@ -6,10 +6,11 @@ import {app} from '../firebase.js'
 
 import { updateUserStart,updateUserSuccess,updateUserFailure,deleteUserStart,deleteUserSuccess, deleteUserFailure,signOutUserStart,signOutUserSuccess,signOutUserFailure} from '../redux/user/userSlice.js'
 import { useDispatch } from 'react-redux'
+import {Link} from 'react-router-dom'
+
 
 
 export default function Profile() {
-  
   const fileRef = useRef(null)
   const {currentUser,loading,error} = useSelector((state) => state.user)
   const [file,setFile] = useState(null) // we'll use later to store in dbase
@@ -139,10 +140,11 @@ export default function Profile() {
               ""
           }
         </p>
-        <input type="text" placeholder='username' id='username' defaultValue={currentUser.username}  onChange={handleChange} className=' p-3 rounded-lg border'/>
-        <input type="email" placeholder='email' id='email' defaultValue={currentUser.email} onChange={handleChange} className=' p-3 rounded-lg border'/>
-        <input type="password" placeholder='password' id='password' onChange={handleChange} className=' p-3 rounded-lg border'/>
+        <input type="text" placeholder='username' id='username' defaultValue={currentUser.username}  onChange={handleChange} className=' p-3 rounded-lg border outline-slate-400'/>
+        <input type="email" placeholder='email' id='email' defaultValue={currentUser.email} onChange={handleChange} className=' p-3 rounded-lg border outline-slate-400'/>
+        <input type="password" placeholder='password' id='password' onChange={handleChange} className=' p-3 rounded-lg border outline-slate-400'/>
         <button className=' bg-slate-800 text-white rounded-lg p-3 uppercase disabled:opacity-80'>{loading?'Loading...':'Update'}</button>
+        <Link className=' bg-green-700 text-white p-3 rounded-lg uppercase text-center disabled:opacity-90 hover:opacity-95' to='/create-listing'>Create Listing</Link>
       </form>
       <div className='flex justify-between mt-5'>
         <span onClick={handleUserDelete} className=' text-red-800 cursor-pointer'>Delete Account</span>

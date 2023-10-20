@@ -133,3 +133,9 @@
     - fields name,description,address,regularPrice,discountPrice,bathrooms,bedrooms,furnished,
         parking,type,offer,imageUrls,userRef
 - use the model in createListing controller midd. to create and add listing data to db
+
+
+## COMPLETE LISTING PAGE UI
+- make '/create-listing' <Link> in profile page
+- make CreateListing.jsx page and add private route to this page from App.jsx
+- make create listing UI
