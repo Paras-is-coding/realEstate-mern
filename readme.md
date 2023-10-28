@@ -139,3 +139,11 @@
 - make '/create-listing' <Link> in profile page
 - make CreateListing.jsx page and add private route to this page from App.jsx
 - make create listing UI
+
+## COMPLETE UPLOAD LISTING IMAGES FUNCTIONALITY
+- add onChange on choosefiles , we'll put files in a state
+- add onClick on upload , we'll store images in firebase which will returl downloadURL/s
+- Then we'll add loading effect and error/if any below 'UPLOAD' button
+    - We'll show uploaded images if uploaded in place of error
+    - We'll add delete functionality if clicked after uploading
+    - For loading effect we'll add another state
