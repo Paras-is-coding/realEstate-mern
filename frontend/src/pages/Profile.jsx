@@ -22,6 +22,9 @@ export default function Profile() {
   const dispatch =  useDispatch();
   const [updateSuccess,setUpdateSuccess] = useState(false);
 
+  const [showListingsError,setShowListingsError] = useState(false)
+  const [userListings,setUserListings] = useState([])
+
   useEffect(()=>{
     if(file){
       setFileUploadErr(false);
@@ -126,6 +129,22 @@ export default function Profile() {
     }
 
   }
+
+  const handleShowListings = async () =>{
+    try {
+      setShowListingsError(false)
+      const res = await fetch(`/api/listing/${currentUser._id}`)
+      const data = await res.json()
+      if(data.success === false){
+        setShowListingsError(true)
+        return;
+      }
+      setUserListings(data)
+    } catch (error) {
+      setShowListingsError(true)     
+    }
+
+  }
     
   return ( 
     <div className='p-4 max-w-lg mx-auto'>
@@ -152,6 +171,36 @@ export default function Profile() {
       </div>
       <p className=' text-red-700 mt-5'>{error?error:""}</p>
       <p className=' text-green-700'>{updateSuccess?"User updated successfully!":""}</p>
+
+      <button onClick={handleShowListings} className=' text-green-700 w-full border p-3 bg-slate-200 font-bold rounded-lg mb-4'>Show Listings</button>
+      <p>{showListingsError ? "Error showing Listings!" : ""}</p>
+       
+       {
+        userListings && userListings.length >0 && 
+        <div className=' w-full'>
+          <div className=' w-full text-center p-3 font-extrabold text-xl opacity-80'>Your Listings </div>
+          {
+            userListings.map((listing)=>{
+              return (
+                <div key={listing._id} className=' flex p-2 border justify-between items-center mt-1 gap-2'>
+                  <Link to={`/listing/${listing._id}`}>       
+                         <img className=' h-32 w-32 object-contain' src={listing.imageUrls[0]} alt="image" />
+                        </Link>
+    
+                  <Link className='flex-1' to={`/listing/${listing._id}`}>       
+                  <h2 className=' font-bold text-lg hover:underline truncate'>{listing.name}</h2>
+                        </Link>
+    
+                  <div className=' flex flex-col font-bold justify-between'>
+                    <button className=' text-green-700 text-lg'>Edit</button>
+                    <button className=' text-red-700 text-lg'>Delete</button>
+                  </div>
+                </div>
+              )
+            })
+          }
+        </div>
+       }
     </div>
   )
 }

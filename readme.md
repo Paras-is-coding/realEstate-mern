@@ -171,3 +171,8 @@
 - src/app/listing/listing.router.js _ create route '/:id'
 - in controller function check if user is getting own listing
     - if soo get the listings 
+
+## Complete show listings functionality in Profile page
+- create Show listings button
+- add onClick _ function will fetch data from api we created before and save data in userListings state
+- use the state to display data below that button in profile page
