@@ -188,3 +188,10 @@
 - create /listing/update/:id route
     - handle error like invalidID, listing not found, can update own listings only
     - update listing using findByIdAndUpdate()
+
+
+## Complete Update listing functionality
+- create NEW page components/pages/UpdateListing.jsx   _ UI is same as create listing page
+- add page to private route
+- wrap EDIT button on profile page with <Link to={`update-listing/${listing._id}`}\>
+- fetch the listing data based on the parameter in URL
