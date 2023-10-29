@@ -164,3 +164,10 @@
     - disable create listing button while creating list or uploading image
     - IF it's sell checked we should not see $/month in price
     - after creating listing redirect to listing/[_id] dynamic page
+
+
+
+## Create get user listings API route
+- src/app/listing/listing.router.js _ create route '/:id'
+- in controller function check if user is getting own listing
+    - if soo get the listings 

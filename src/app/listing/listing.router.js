@@ -4,5 +4,7 @@ const listingCtrl = require("./listing.controller.js");
 
 
 router.post('/create',verifyToken,listingCtrl.createListing)
+
+router.get('/:id',verifyToken,listingCtrl.getUserListings)
  
 module.exports = router;
