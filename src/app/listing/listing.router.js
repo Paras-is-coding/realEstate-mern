@@ -10,5 +10,7 @@ router.get('/:id',verifyToken,listingCtrl.getUserListings)
 router.delete('/delete/:id',verifyToken,listingCtrl.deleteUserListing)
 
 router.post('/update/:id',verifyToken,listingCtrl.updateListing)
+
+router.get('/get/:id',listingCtrl.getListing)
  
 module.exports = router;

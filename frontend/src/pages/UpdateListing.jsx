@@ -1,8 +1,8 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import {getDownloadURL, getStorage, ref, uploadBytesResumable}  from 'firebase/storage'
 import {app} from '../firebase'
 import {useSelector} from 'react-redux'
-import {useNavigate} from 'react-router-dom'
+import {useNavigate,useParams} from 'react-router-dom'
 
 export default function UpdateListing() {
     const {currentUser} = useSelector(state => state.user)
@@ -30,6 +30,24 @@ export default function UpdateListing() {
     console.log(formData)
 
     const navigate = useNavigate()
+    const params = useParams()
+
+    useEffect(()=>{
+        const fetchListing = async () =>{
+            const listingId = params.listingID
+            const res = await fetch(`/api/listing/get/${listingId}`,{
+                method:"GET"
+            })
+            const listing =await res.json();
+            if(listing.success === false){
+                console.log(listing.message)
+            }
+            setFormData(listing);
+
+
+        }
+        fetchListing();
+    },[])
 
     const handleImageSubmit = (e)=>{
         if(files.length>0 && files.length + formData.imageUrls.length<7){
@@ -120,7 +138,7 @@ const handleSubmit =async (e)=>{
         if(+formData.discountPrice > +formData.regularPrice) return setError("Regular price should be more than discount!")
         setLoading(true)
         setError(false)
-        const res = await fetch('/api/listing/create',{
+        const res = await fetch(`/api/listing/update/${params.listingID}`,{
             method:"POST",
             headers:{
                 'Content-Type':'application/json',

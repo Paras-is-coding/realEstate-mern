@@ -75,6 +75,20 @@ class listingController {
                 return next(errorHandler(400, "Invalid ID provided for updating the listing."));
             }
         }
+
+        getListing = async (req,res,next) =>{
+            try {
+                const listing = await Listing.findById(req.params.id);
+        
+                if (!listing) {
+                    return next(errorHandler(404, "Listing not found!"));
+                } 
+                res.status(200).json(listing);
+            } catch (error) {
+                // Handle the error when the provided ID is not valid
+                return next(errorHandler(400, "Invalid ID provided for updating the listing."));
+            }
+        }
         
 
         

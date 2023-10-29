@@ -195,3 +195,9 @@
 - add page to private route
 - wrap EDIT button on profile page with <Link to={`update-listing/${listing._id}`}\>
 - fetch the listing data based on the parameter in URL
+    - we'll use useEffect hook for that _ make async fetchListing func. inside and call
+    - to get URL use hook 'useParams' from 'react-router-dom'
+    - NOW create API route to get Information using that listingId
+    - fetch listing using listingId from that API
+    - set 'formData' state to the data we get
+- NOW instead of Creating on submit , modify to call update listing API on click to Update Listing button
