@@ -8,5 +8,7 @@ router.post('/create',verifyToken,listingCtrl.createListing)
 router.get('/:id',verifyToken,listingCtrl.getUserListings)
 
 router.delete('/delete/:id',verifyToken,listingCtrl.deleteUserListing)
+
+router.post('/update/:id',verifyToken,listingCtrl.updateListing)
  
 module.exports = router;

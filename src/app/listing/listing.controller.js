@@ -47,7 +47,38 @@ class listingController {
             
         }
     }
-}
+
+
+   
+
+    updateListing = async (req, res, next) => {
+            try {
+                const listing = await Listing.findById(req.params.id);
+        
+                if (!listing) {
+                    return next(errorHandler(404, "Listing not found!"));
+                }
+        
+                if (req.user.id !== listing.userRef) {
+                    return next(errorHandler(401, "You can update your own listings only!"));
+                }
+        
+                const updatedListing = await Listing.findByIdAndUpdate(
+                    req.params.id,
+                    req.body,
+                    { new: true }
+                );
+        
+                res.status(200).json(updatedListing);
+            } catch (error) {
+                // Handle the error when the provided ID is not valid
+                return next(errorHandler(400, "Invalid ID provided for updating the listing."));
+            }
+        }
+        
+
+        
+    }
 
 const listingCtrl = new listingController();
 module.exports = listingCtrl;

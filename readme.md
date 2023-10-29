@@ -183,3 +183,8 @@
 - add onClick on delete button on Client side, call route above with id of listing
     - if any error occurs console.log for now 
     - for success response update 'userListings' state we've created before
+
+## Create update listing API route
+- create /listing/update/:id route
+    - handle error like invalidID, listing not found, can update own listings only
+    - update listing using findByIdAndUpdate()
