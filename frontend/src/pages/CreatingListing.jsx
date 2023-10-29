@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import {getDownloadURL, getStorage, ref, uploadBytesResumable}  from 'firebase/storage'
 import {app} from '../firebase'
 import {useSelector} from 'react-redux'
+import {useNavigate} from 'react-router-dom'
 
 export default function CreatingListing() {
     const {currentUser} = useSelector(state => state.user)
@@ -15,7 +16,7 @@ export default function CreatingListing() {
         bedrooms:1,
         bathrooms:1,
         regularPrice:50,
-        discountPrice:50,
+        discountPrice:0,
         offer:false,
         parking:false,
         furnished:false,
@@ -27,6 +28,8 @@ export default function CreatingListing() {
     const [error,setError] = useState(false);
     const [loading,setLoading] = useState(false);
     console.log(formData)
+
+    const navigate = useNavigate()
 
     const handleImageSubmit = (e)=>{
         if(files.length>0 && files.length + formData.imageUrls.length<7){
@@ -113,6 +116,8 @@ const handleChange = (e)=>{
 const handleSubmit =async (e)=>{
     e.preventDefault();
     try {
+        if(formData.imageUrls.length<1) return setError("You must upload at least one image!")
+        if(+formData.discountPrice > +formData.regularPrice) return setError("Regular price should be more than discount!")
         setLoading(true)
         setError(false)
         const res = await fetch('/api/listing/create',{
@@ -131,6 +136,7 @@ const handleSubmit =async (e)=>{
             setError(data.message)
         }
         setLoading(false)
+        navigate(`/listing/${data._id}`)
     } catch (error) {
         setError(error.message)
         setLoading(false)
@@ -218,21 +224,21 @@ const handleSubmit =async (e)=>{
                      className='p-3 w-16 h-10 border rounded-lg outline-slate-400' type='number' id='regularPrice' />
                     <div className='flex flex-col'>
                     <label htmlFor="regularPrice">Regular Price</label>
-                    <label className=' text-xs' htmlFor='regularPrice'>($/month)</label>
+                    <label className=' text-xs' htmlFor='regularPrice'>(${(formData.type === 'rent') && (`/month`)})</label>
                     </div>                    
                 </div>
-                <div className=' font-bold flex gap-3 items-center'>
+                {formData.offer && (<div className=' font-bold flex gap-3 items-center'>
                     <input
                     onChange={handleChange}
                     value={formData.discountPrice}
-                    min='50'
+                    min='0'
                     max='10000000'
                      className='p-3 w-16 h-10 border rounded-lg outline-slate-400' type='number' id='discountPrice' />
                     <div className='flex flex-col'>
                     <label htmlFor="discountPrice">Discounted Price</label>
-                    <label className=' text-xs' htmlFor='discountPrice'>($/month)</label>
+                    <label className=' text-xs' htmlFor='discountPrice'>($ {(formData.type === 'rent') && (`/month`)} )</label>
                     </div>                    
-                </div>
+                </div>)}
             </div>
         </div>
         <div id='right' className='flex flex-col gap-2 flex-1'>
@@ -251,7 +257,7 @@ const handleSubmit =async (e)=>{
                 <button type='button' onClick={()=>handleRemoveImage(index)} className=' p-3 rounded-lg uppercase hover:opacity-80 border bg-red-700 text-white'>Delete</button>
                 </div>
             ))}
-            <button type='submit'  className=' p-3 bg-slate-700 text-white uppercase rounded-lg mt-3 hover:opacity-95 disabled:opacity-80'>{loading?"Creating..." : "Create Listing"}</button>
+            <button type='submit' disabled={loading || uploading}  className=' p-3 bg-slate-700 text-white uppercase rounded-lg mt-3 hover:opacity-95 disabled:opacity-80'>{loading?"Creating..." : "Create Listing"}</button>
             {error && <p className=' text-red-700 text-sm'>{error}</p>}
         </div>
 

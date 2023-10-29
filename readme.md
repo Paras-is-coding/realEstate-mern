@@ -157,3 +157,10 @@
     - now send also add useRef to req.body to know which person is creating
 
 
+- Different conditions on page
+    - listing shouldn't be created without uploading any image,
+    - discount price < regular price,
+    - !! If we have offer we should see discount price input,
+    - disable create listing button while creating list or uploading image
+    - IF it's sell checked we should not see $/month in price
+    - after creating listing redirect to listing/[_id] dynamic page
