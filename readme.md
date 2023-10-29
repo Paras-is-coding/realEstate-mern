@@ -147,3 +147,13 @@
     - We'll show uploaded images if uploaded in place of error
     - We'll add delete functionality if clicked after uploading
     - For loading effect we'll add another state
+
+
+## COMPLETE CREATE-LISTING PAGE FUNCTIONALITY
+- add other inputs to formData 
+- add onChange eventListoner to each input, also set their values & checked status
+- create handleChange function for different kind of input 
+- Now add 'onSubmit' event listioner to form
+    - now send also add useRef to req.body to know which person is creating
+
+
