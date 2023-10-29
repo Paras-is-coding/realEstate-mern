@@ -27,6 +27,26 @@ class listingController {
             return next(errorHandler(401,"You can see your own listings only!"));
         }
     }
+
+    deleteUserListing = async(req,res,next)=>{
+        const listing = await Listing.findById(req.params.id)
+
+        if(!listing){
+            return next(errorHandler(404,"Listing not found!"))
+        }
+
+        if(req.user.id !== listing.userRef){
+            return next(errorHandler(401,"You can only delete your own listings!"))
+        }
+
+        try {
+            await Listing.findByIdAndDelete(req.params.id)       
+            res.status(200).json(`Listing ${req.params.id} deleted successfully!`)     
+        } catch (error) {
+            next(error)
+            
+        }
+    }
 }
 
 const listingCtrl = new listingController();

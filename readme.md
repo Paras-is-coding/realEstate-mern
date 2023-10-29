@@ -176,3 +176,10 @@
 - create Show listings button
 - add onClick _ function will fetch data from api we created before and save data in userListings state
 - use the state to display data below that button in profile page
+
+## Complete delete user listing functionality
+- create /listing/delete/:id API route
+    - get :id search for listing in Listings ,if authenicated and if exist delete it
+- add onClick on delete button on Client side, call route above with id of listing
+    - if any error occurs console.log for now 
+    - for success response update 'userListings' state we've created before
