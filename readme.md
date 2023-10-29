@@ -201,3 +201,13 @@
     - fetch listing using listingId from that API
     - set 'formData' state to the data we get
 - NOW instead of Creating on submit , modify to call update listing API on click to Update Listing button
+
+
+
+## Creating the listing page UI
+- create Listing.jsx component 
+- add dynamic route to App.jsx, isn't a private one
+- in Listing.jsx _ get listing using ID and useEffect()
+- set state to store listing, loading, error and display accordingly 
+
+
