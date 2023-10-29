@@ -210,4 +210,6 @@
 - in Listing.jsx _ get listing using ID and useEffect()
 - set state to store listing, loading, error and display accordingly 
 
-
+    -  Display images in slider 
+        - install 'swiper' in frontend 
+        - use it to create slider 
