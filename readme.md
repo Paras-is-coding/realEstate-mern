@@ -216,3 +216,15 @@
     
     - completing listing page UI
         - look for the data available in listing and create UI using those
+
+# Adding contact landlord part functionality to listing page
+- make the button seen to only other than owner
+- copy address of page, signout and login different user goto that address / button seen
+- add[contact,setContact] such that when 'contact' btn is clicked state becomes true and 
+    - button disappear 
+    - another form with send message appear
+        - make it <Contact listing={listing}/> component
+        - Get landlord info sending listing.userRef to getUser route, route is verified one
+        - use that info to create contact component
+        - make <Link to={`mailto:${landlord?.email}?subject=Regarding ${listing?.name}&body=${message}`}>Send message</Link>
+            - will activate mailsystem in windows

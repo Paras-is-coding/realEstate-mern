@@ -8,6 +8,9 @@ import 'swiper/css/bundle'
 
 import {IoLocationSharp} from 'react-icons/io5'
 import {FaParking,FaBed,FaBath, FaChair} from 'react-icons/fa'
+import {useSelector} from 'react-redux'
+
+import Contact from './Contact'
 
 export default function Listing() {
     SwiperCore.use([Navigation]);
@@ -15,7 +18,12 @@ export default function Listing() {
     const [listing,setListing] = useState(null);
     const [loading,setLoading] = useState(false);
     const [error,setError] = useState(false);
+    
+    const [contact,setContact] = useState(false);
     const params = useParams()
+
+    const {currentUser} = useSelector((state)=>state.user);
+     
     useEffect(()=>{
         const fetchListing = async()=>{
             try {
@@ -36,6 +44,7 @@ export default function Listing() {
         }
         fetchListing();
     },[params.listingID])
+
   return (
             <main>
                 {loading && <p className=' text-center text-2xl mt-8'>Loading...</p>}
@@ -103,10 +112,20 @@ export default function Listing() {
                 </div>
                 </div>
 
-
-                <div className=' w-full text-center p-4 mt-8 '><button className=' bg-slate-700 text-white w-[80vw] rounded-lg text-lg py-4'>Contact Landlord</button></div>
+                {
+                    currentUser && listing.userRef !== currentUser._id && !contact &&
+                        <div className=' w-full text-center p-4 mt-8 '>
+                    <button onClick={()=>setContact(true)} className=' bg-slate-700 text-white w-[80vw] rounded-lg text-lg py-4 hover:opacity-95'>Contact Landlord</button>
+                    </div>
+                    
+                }
+                {
+                    contact &&
+                    <div className=' w-full text-center p-4 mt-8 '>
+                        <Contact listing={listing}/>
+                    </div>
+                }
                 </div>
-                
                 }
             </main>
   )
