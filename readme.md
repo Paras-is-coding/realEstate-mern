@@ -213,3 +213,6 @@
     -  Display images in slider 
         - install 'swiper' in frontend 
         - use it to create slider 
+    
+    - completing listing page UI
+        - look for the data available in listing and create UI using those
