@@ -241,3 +241,12 @@
     - we can also sort ,limit and skip few index of them using buildin functions and given values
     - return this listing to user
 - API is ready to be used we need to pass necessary query conditions in URL now 
+
+
+* Complete Header form search functionality
+- when we write on search box and enter OR click search icon, URL should change with searchTerm 
+- components/Header.jsx
+    - track changes on input with a searchTerm state
+    - add handleSubmit where we'll modify/update URL TO form onSubmit and button onClick
+
+    - Also change in searchTerm in URL we'll reflect to input using useEffect()
