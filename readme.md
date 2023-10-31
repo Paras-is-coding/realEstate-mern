@@ -228,3 +228,16 @@
         - use that info to create contact component
         - make <Link to={`mailto:${landlord?.email}?subject=Regarding ${listing?.name}&body=${message}`}>Send message</Link>
             - will activate mailsystem in windows
+
+
+
+# Search functionality 
+
+* Create search API route
+- listings/listing.router.js/  _ .get('/get',getListings)
+- in getListings we receive different queries as req.query._ 
+    - receive all queries 
+    - Then find listings using $regx with searchTerm in name and other fields  as given
+    - we can also sort ,limit and skip few index of them using buildin functions and given values
+    - return this listing to user
+- API is ready to be used we need to pass necessary query conditions in URL now 
