@@ -250,3 +250,9 @@
     - add handleSubmit where we'll modify/update URL TO form onSubmit and button onClick
 
     - Also change in searchTerm in URL we'll reflect to input using useEffect()
+
+* Create search page UI
+- pages/Search.jsx
+- Left side of page contains selectors for Searching in a form
+- Right side shows listing 
+
