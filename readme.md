@@ -280,3 +280,16 @@
     - NOW !! WE'LL FETCH data from DB using that URL
         - at end of useEffect create fetchListings() async function and call there only
         - set two states : loading and listings
+
+
+# Creating the list item component and show listings
+
+- In right part of search page , if
+    - !loading and listings is empty, show Not found message
+    - loading, show loading
+    - !loading and listings, map listings and show all in ListingIteam card
+* ListingIteam 
+    - wrap with <Link to={`/listing/${listing._id}`}>
+    ...
+    - install tailwind line-clamp to use truncate line after fix no of lines ie...
+        - add to tailwind.config.js
