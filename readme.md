@@ -256,3 +256,27 @@
 - Left side of page contains selectors for Searching in a form
 - Right side shows listing 
 
+
+* Now we'll add onChange and onSubmit functionality on the search page
+
+- We'll track the changes and modify URL and finally add Search functionality
+    - Create state sidebardata 
+    - add value and onChange on each input
+    - on handleChange, handle conditions for type, searchTerm, booleans and select seperately
+
+    - NOW clicking 'search' button we'll submit the form(onSubmit={handleSubmit}) and Change URL
+        - urlParams = new urlSearchParams()
+        - add all queries to URL (eg urlParams.set("searchTerm",sidebardata.searchTerm)) soon...
+        - convert urlParams to string
+        - navigate user to new modified URL
+
+    - BUT !! we also want to make changes in form according to URL we get 
+        - using useEffect(()+{},[location.search])
+        - urlParams = new URLSearchParams(location.search)
+        - get each query _ eg offerFromUrl = urlParams.get('offer')
+        - if any query found,change of set default _
+         setSidebardata({offer:offerFromUrl || false})
+
+    - NOW !! WE'LL FETCH data from DB using that URL
+        - at end of useEffect create fetchListings() async function and call there only
+        - set two states : loading and listings
